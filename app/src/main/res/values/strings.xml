@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">BookReader</string>
+    <string name="login_name">Login</string>
+    <string name="sign_up_name">Sign Up</string>
+    <string name="email_name">Email</string>
+    <string name="pswrd_name">Password</string>
 </resources>

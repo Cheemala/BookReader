@@ -10,7 +10,6 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -59,7 +58,7 @@ fun ImpLoginScreen(navController: NavController) {
         Spacer(modifier = Modifier.height(5.dp))
         PasswordInputField(passwordValue = passwordStateValue, label = "Password", singleLine = true, keyboardType = KeyboardType.Password)
         Spacer(modifier = Modifier.height(5.dp))
-        SubmitBtn(btnLabel = R.string.email_name, loading = loadingStateValue){
+        SubmitBtn(btnLabel = R.string.email_name, emailState = emailStateValue, pswrdState = passwordStateValue, loading = loadingStateValue){
             loadingStateValue.value = !loadingStateValue.value
         }
     }

@@ -4,8 +4,10 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.cheemala.bookreader.screens.HomeScreen
-import com.cheemala.bookreader.screens.SplashScreen
+import com.cheemala.bookreader.screens.home.HomeScreen
+import com.cheemala.bookreader.screens.login.LoginScreen
+import com.cheemala.bookreader.screens.signup.SignUpScreen
+import com.cheemala.bookreader.screens.splash.SplashScreen
 
 @Composable
 fun BookReaderNavigation(){
@@ -14,6 +16,14 @@ fun BookReaderNavigation(){
 
         composable(route = BookReaderScreens.SplashScreen.name){
             SplashScreen(navController = navController)
+        }
+
+        composable(route = BookReaderScreens.LoginScreen.name){
+            LoginScreen(navController = navController)
+        }
+
+        composable(route = BookReaderScreens.SignUpScreen.name){
+            SignUpScreen(navController = navController)
         }
 
         composable(route = BookReaderScreens.HomeScreen.name){

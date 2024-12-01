@@ -13,6 +13,9 @@ composeBom = "2024.05.00"
 navVersion = "2.7.7"
 retrofitVersion = "2.11.0"
 gsonConVersion = "2.11.0"
+roomDbVersion = "2.6.1"
+kotlinCoroutineVersion = "1.3.9"
+coroutineSupportForVMVersion = "2.8.7"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -22,6 +25,11 @@ hilt-android = { module = "com.google.dagger:hilt-android", version.ref = "hiltA
 hilt-navigation-compose = {module = "androidx.hilt:hilt-navigation-compose",  version.ref = "hiltNavCompose"}
 retrofit-android = {module = "com.squareup.retrofit2:retrofit", version.ref = "retrofitVersion"}
 gson-converter = {module = "com.squareup.retrofit2:converter-gson", version.ref = "gsonConVersion"}
+room-database = {module = "androidx.room:room-runtime", version.ref = "roomDbVersion"}
+room-compiler = {module ="androidx.room:room-compiler", version.ref = "roomDbVersion"}
+kotlin-coroutine = {module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", version.ref= "kotlinCoroutineVersion"}
+room-coroutine-support = {module = "androidx.room:room-ktx", version.ref="roomDbVersion"}
+coroutine-viewmodel-support = {module = "androidx.lifecycle:lifecycle-viewmodel-ktx", version.ref = "coroutineSupportForVMVersion"}
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
 androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }

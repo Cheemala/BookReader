@@ -1,12 +1,13 @@
 package com.cheemala.bookreader.navigation
 
 import androidx.compose.runtime.Composable
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.cheemala.bookreader.screens.home.HomeScreen
-import com.cheemala.bookreader.screens.login.LoginScreen
-import com.cheemala.bookreader.screens.signup.SignUpScreen
+import com.cheemala.bookreader.screens.login.SignUpOrLoginScreen
+import com.cheemala.bookreader.screens.login.SignUpOrLoginScreenViewModel
 import com.cheemala.bookreader.screens.splash.SplashScreen
 
 @Composable
@@ -18,12 +19,9 @@ fun BookReaderNavigation(){
             SplashScreen(navController = navController)
         }
 
-        composable(route = BookReaderScreens.LoginScreen.name){
-            LoginScreen(navController = navController)
-        }
-
-        composable(route = BookReaderScreens.SignUpScreen.name){
-            SignUpScreen(navController = navController)
+        composable(route = BookReaderScreens.SignUpOrLoginScreen.name){
+            val signUpOrLoginScreenViewModel = hiltViewModel<SignUpOrLoginScreenViewModel>()
+            SignUpOrLoginScreen(navController = navController, signUpOrLoginScreenViewModel = signUpOrLoginScreenViewModel)
         }
 
         composable(route = BookReaderScreens.HomeScreen.name){

@@ -1,4 +1,4 @@
-package com.cheemala.bookreader
+package com.cheemala.bookreader.components
 
 import android.graphics.drawable.Icon
 import androidx.compose.foundation.Image
@@ -20,7 +20,6 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
@@ -31,9 +30,10 @@ import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
+import com.cheemala.bookreader.R
 
 @Composable
-fun AppHeaderText(title: Int) {
+fun AppHeaderText(title: String) {
     Column(
         modifier = Modifier.padding(2.dp),
         verticalArrangement = Arrangement.Center,
@@ -45,7 +45,7 @@ fun AppHeaderText(title: Int) {
             modifier = Modifier.size(100.dp)
         )
         Text(
-            text = stringResource(id = title),
+            text = title,
             style = MaterialTheme.typography.titleLarge,
             color = Color.Black,
             fontWeight = FontWeight.Bold
@@ -120,7 +120,7 @@ fun PasswordInputField(
 @Composable
 fun SubmitBtn(
     modifier: Modifier = Modifier,
-    btnLabel: Int,
+    btnLabel: String,
     loading: MutableState<Boolean>,
     emailState: MutableState<String>,
     pswrdState: MutableState<String>,
@@ -139,7 +139,7 @@ fun SubmitBtn(
     ) {
         if (loading.value) CircularProgressIndicator(modifier = modifier.size(50.dp))
         else
-            Text(text = stringResource(id = btnLabel), textAlign = TextAlign.Center)
+            Text(text = btnLabel, textAlign = TextAlign.Center)
     }
 
 }

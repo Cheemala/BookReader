@@ -5,13 +5,11 @@ import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import coil3.util.Logger
 import com.cheemala.bookreader.BookRepository
 import com.cheemala.bookreader.model.data.Book
 import com.cheemala.bookreader.model.data.DataOrException
 import com.cheemala.bookreader.model.data.Item
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.Deferred
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 import javax.inject.Inject

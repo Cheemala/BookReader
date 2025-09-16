@@ -2,6 +2,7 @@ package com.cheemala.bookreader.components
 
 import android.graphics.drawable.Icon
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -41,6 +42,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.SoftwareKeyboardController
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontFamily
@@ -51,6 +53,7 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.cheemala.bookreader.R
 import com.cheemala.bookreader.model.data.Book
+import java.util.Collections.emptyList
 
 
 @Composable
@@ -77,7 +80,13 @@ fun AppHeaderText(title: String) {
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun BookReaderAppBar(showProfile: Boolean, navController: NavController) {
+fun BookReaderAppBar(
+    title: String,
+    showProfile: Boolean,
+    isHomeScreen: Boolean,
+    navController: NavController,
+    onBackPressed: () -> Unit = {}
+) {
 
     TopAppBar(
         modifier = Modifier
@@ -94,8 +103,18 @@ fun BookReaderAppBar(showProfile: Boolean, navController: NavController) {
 
                     }
                 }*/
+                if (!isHomeScreen) {
+                    Icon(
+                        painter = painterResource(id = R.drawable.arrow_back_icon),
+                        contentDescription = "Logout",
+                        modifier = Modifier
+                            .size(30.dp)
+                            .clickable { navController.popBackStack() },
+                        tint = Color.Red
+                    )
+                }
                 Text(
-                    text = "BookReader",
+                    text = title,
                     style = TextStyle(
                         fontWeight = FontWeight.SemiBold,
                         color = Color.Red,
@@ -106,12 +125,14 @@ fun BookReaderAppBar(showProfile: Boolean, navController: NavController) {
             }
         },
         actions = {
-            Icon(
-                painter = painterResource(id = R.drawable.logout_icon),
-                contentDescription = "Logout",
-                modifier = Modifier.size(30.dp),
-                tint = Color.Red
-            )
+            if (isHomeScreen) {
+                Icon(
+                    painter = painterResource(id = R.drawable.logout_icon),
+                    contentDescription = "Logout",
+                    modifier = Modifier.size(30.dp),
+                    tint = Color.Red
+                )
+            }
         }
         /*modifier = Modifier
             .fillMaxWidth()
@@ -136,7 +157,7 @@ fun TopBar(
 }
 
 @Composable
-fun EmailInputField(
+fun InputField(
     modifier: Modifier = Modifier,
     value: MutableState<String>,
     label: String,
@@ -151,31 +172,6 @@ fun EmailInputField(
         modifier = modifier.fillMaxWidth(),
         value = value.value,
         onValueChange = { value.value = it },
-        label = { Text(text = label) },
-        singleLine = singleLine,
-        enabled = enabled,
-        keyboardOptions = KeyboardOptions(keyboardType = keyboardType, imeAction = imeAction),
-        keyboardActions = onAction
-    )
-
-}
-
-@Composable
-fun PasswordInputField(
-    modifier: Modifier = Modifier,
-    passwordValue: MutableState<String>,
-    label: String,
-    singleLine: Boolean,
-    enabled: Boolean = true,
-    keyboardType: KeyboardType,
-    imeAction: ImeAction = ImeAction.Default,
-    onAction: KeyboardActions = KeyboardActions.Default
-) {
-
-    OutlinedTextField(
-        modifier = modifier.fillMaxWidth(),
-        value = passwordValue.value,
-        onValueChange = { passwordValue.value = it },
         label = { Text(text = label) },
         singleLine = singleLine,
         enabled = enabled,
@@ -221,7 +217,12 @@ fun ReadingListRightNowHeader() {
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically
     ) {
-        TitleText(title = "Reading List Right Now", textAlign = TextAlign.Start, fontWeight = FontWeight.Bold, fontSize = 20.sp)
+        TitleText(
+            title = "Reading List Right Now",
+            textAlign = TextAlign.Start,
+            fontWeight = FontWeight.Bold,
+            fontSize = 20.sp
+        )
         Column(horizontalAlignment = Alignment.CenterHorizontally) {
             Card(
                 modifier = Modifier
@@ -229,9 +230,19 @@ fun ReadingListRightNowHeader() {
                     .padding(5.dp),
                 shape = RoundedCornerShape(10.dp)
             ) {
-                Icon(painter = painterResource(id = R.drawable.profile_icon), contentDescription = "Profile", modifier = Modifier.size(50.dp), tint = Color.Red)
+                Icon(
+                    painter = painterResource(id = R.drawable.profile_icon),
+                    contentDescription = "Profile",
+                    modifier = Modifier.size(50.dp),
+                    tint = Color.Red
+                )
             }
-            TitleText(title = "Hi, Chai", textAlign = TextAlign.End, fontWeight = FontWeight.Bold, fontSize = 14.sp)
+            TitleText(
+                title = "Hi, Chai",
+                textAlign = TextAlign.End,
+                fontWeight = FontWeight.Bold,
+                fontSize = 14.sp
+            )
         }
 
     }
@@ -271,12 +282,14 @@ fun ReadingList(bookList: List<Book> = emptyList()) {
 
     val scrollState = rememberScrollState()
 
-    Row(modifier = Modifier
-        .fillMaxWidth()
-        .height(260.dp)
-        .horizontalScroll(state = scrollState)) {
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .height(260.dp)
+            .horizontalScroll(state = scrollState)
+    ) {
 
-        for(book in bookList){
+        for (book in bookList) {
             BookItem(bookItem = book)
         }
 
@@ -377,7 +390,7 @@ fun BookItem(bookItem: Book) {
                 }
             }
             Text(
-                text = bookItem.bookTitle,
+                text = bookItem.bookTitle?:"",
                 fontWeight = FontWeight.Bold,
                 fontSize = 18.sp,
                 maxLines = 2,
@@ -427,6 +440,45 @@ fun RoundedButton(title: String = "Demo", radius: Int = 30) {
 
 
 @Composable
-fun TitleText(title: String, textAlign: TextAlign, fontWeight: FontWeight, fontSize:TextUnit, maxLines: Int = 1, overFlow: TextOverflow = TextOverflow.Ellipsis){
+fun TitleText(
+    title: String,
+    textAlign: TextAlign,
+    fontWeight: FontWeight,
+    fontSize: TextUnit,
+    maxLines: Int = 1,
+    overFlow: TextOverflow = TextOverflow.Ellipsis
+) {
     Text(text = title, textAlign = textAlign, fontWeight = fontWeight, fontSize = fontSize)
+}
+
+@Composable
+fun RoundedCornerButton(label: String, radius: Int, color: Color = Color.DarkGray, onPressed: () -> Unit = {}) {
+    Surface(
+        modifier = Modifier
+            .padding(2.dp)
+            .clip(
+                RoundedCornerShape(
+                    topStartPercent = radius,
+                    topEndPercent = 0,
+                    bottomEndPercent = radius,
+                    bottomStartPercent = 0
+                )
+            )
+            .clickable {
+                onPressed.invoke()
+            },
+        color = color
+    ) {
+
+        Column(
+            modifier = Modifier
+                .width(90.dp)
+                .height(50.dp),
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Center
+        ) {
+            Text(text = label, fontWeight = FontWeight.SemiBold)
+        }
+
+    }
 }

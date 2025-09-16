@@ -4,5 +4,7 @@
     <string name="sign_up_name">Sign Up</string>
     <string name="email_name">Email</string>
     <string name="pswrd_name">Password</string>
+    <string name="save_name">Save</string>
+    <string name="cancel_name">Cancel</string>
     <string name="no_account_name">Don\'t have an account? SignUp</string>
 </resources>

@@ -27,17 +27,14 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.cheemala.bookreader.components.AppHeaderText
-import com.cheemala.bookreader.components.EmailInputField
-import com.cheemala.bookreader.components.PasswordInputField
 import com.cheemala.bookreader.R
+import com.cheemala.bookreader.components.InputField
 import com.cheemala.bookreader.components.SubmitBtn
 import com.cheemala.bookreader.components.TopBar
 import com.cheemala.bookreader.model.data.User
 import com.cheemala.bookreader.navigation.BookReaderScreens
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.launch
 
 
@@ -104,15 +101,15 @@ fun ImpLoginOrSignUpScreen(
         Spacer(modifier = Modifier.height(10.dp))
         AppHeaderText(title = submitBtnOrTitleText)
         Spacer(modifier = Modifier.height(25.dp))
-        EmailInputField(
+        InputField(
             value = emailStateValue,
             label = "Email",
             singleLine = true,
             keyboardType = KeyboardType.Text
         )
         Spacer(modifier = Modifier.height(5.dp))
-        PasswordInputField(
-            passwordValue = passwordStateValue,
+        InputField(
+            value = passwordStateValue,
             label = "Password",
             singleLine = true,
             keyboardType = KeyboardType.Password

@@ -8,7 +8,7 @@ plugins {
 
 android {
     namespace = "com.cheemala.bookreader"
-    compileSdk = 34
+    compileSdk = 36
 
     defaultConfig {
         applicationId = "com.cheemala.bookreader"
@@ -67,6 +67,9 @@ dependencies {
     implementation(libs.hilt.navigation.compose)
     implementation(libs.retrofit.android)
     implementation(libs.gson.converter)
+    implementation(libs.ok.http)
+    implementation(libs.coil.compose)
+    implementation(libs.coil.network.okhttp)
     implementation(libs.room.database)
     implementation(libs.room.coroutine.support)
     implementation(libs.kotlin.coroutine)
